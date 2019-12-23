@@ -1,20 +1,25 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import React from "react";
+import { View, TextInput, StyleSheet } from "react-native";
+import { connect, useSelector } from "react-redux";
+import { textNote } from "../action";
 import { _storeData, _retrieveData } from "../helpers/useData";
 
-const NoteScreen = ({ navigation }) => {
-  const [text, useText] = useState(navigation.getParam("text"));
+const NoteScreen = ({ navigation, onChange, data }) => {
   const id = navigation.getParam("id");
+  const notes = useSelector(state => state.notes);
+  const findCurrentText = () => {
+    const index = data.findIndex(item => item.id === id);
+    return String(data[index].text);
+  };
   return (
     <View style={styles.view}>
       <TextInput
         style={styles.textInput}
-        value={String(text)}
         multiline={true}
+        value={findCurrentText()}
         numberOfLines={40}
         onChangeText={value => {
-          _storeData(String(id), value);
-          useText(value);
+          onChange(id, value);
         }}
       />
     </View>
@@ -31,4 +36,19 @@ const styles = StyleSheet.create({
     marginVertical: 5
   }
 });
-export default NoteScreen;
+const mapStateToProps = state => {
+  return {
+    data: state.notes.notes
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onChange: (id, text) => {
+      dispatch(textNote(id, text));
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NoteScreen);

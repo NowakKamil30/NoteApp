@@ -1,43 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
+import { connect, useSelector } from "react-redux";
 import NoteElement from "../components/NoteElement";
 import RadiusButton from "../components/RadiusButton";
-import { _retrieveData, _storeData } from "../helpers/useData";
+import { addNote } from "../action";
 
-HomeScreen = ({ navigation }) => {
-  const [data, useData] = useState([]);
-  useEffect(() => {}, []);
+HomeScreen = ({ navigation, data, addNote }) => {
+  const notes = useSelector(state => state.notes);
   return (
     <View style={styles.mainView}>
       <RadiusButton
         onClick={() => {
-          let currentid;
-          _retrieveData("id")
-            .then(id => {
-              console.log(id);
-              if (id === "undefined") {
-                currentid = 1;
-              } else {
-                currentid = Number(id) + 1;
-              }
-              return _storeData("id", currentid);
-            })
-            .then(result => {
-              console.log(currentid);
-              useData([
-                ...data,
-                {
-                  shortText: "sacascasvasvfasdfefasfeaf",
-                  id: currentid,
-                  color: "green"
-                }
-              ]);
-              //return _retrieveData("usingID");
-            })
-            //.then(result => {})
-            .catch(err => {
-              console.log(err);
-            });
+          addNote();
         }}
       />
       <FlatList
@@ -48,11 +22,11 @@ HomeScreen = ({ navigation }) => {
           <NoteElement
             onClick={() => {
               navigation.navigate("Note", {
-                text: item.shortText,
+                text: item.text,
                 id: item.id
               });
             }}
-            text={item.shortText}
+            text={item.text}
           />
         )}
       />
@@ -70,5 +44,12 @@ const styles = StyleSheet.create({
     zIndex: 0
   }
 });
-
-export default HomeScreen;
+const mapStateToProps = state => {
+  return {
+    data: state.notes.notes
+  };
+};
+export default connect(
+  mapStateToProps,
+  { addNote }
+)(HomeScreen);
