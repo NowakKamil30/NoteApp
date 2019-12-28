@@ -5,6 +5,7 @@ import {
   DOWNLOAD_ID,
   TEXT_NOTE
 } from "../action/types";
+import { _retrieveData, _storeData } from "../helpers/useData";
 
 const INITIAL_STATE = { notes: [] };
 
@@ -27,12 +28,15 @@ export default (state = INITIAL_STATE, action) => {
       {
         const { id, text } = action.payload;
         const index = state.notes.findIndex(item => item.id === id);
-        console.log(index);
-        console.log(state.notes[index].text);
         state.notes[index].text = text;
-        console.log(state.notes[index].text);
+        _storeData("text-" + id, text);
         return { ...state, notes: state["notes"] };
-        return state;
+      }
+      break;
+    case DOWNLOAD_NOTES:
+      {
+        const { payload } = action;
+        return { ...state, notes: payload };
       }
       break;
     default:
