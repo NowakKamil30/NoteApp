@@ -1,9 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableNativeFeedback } from "react-native";
 
-const NoteElement = ({ text, onClick }) => {
+const NoteElement = ({ text, id, onClick, onLongPress }) => {
   return (
-    <TouchableNativeFeedback onPress={onClick}>
+    <TouchableNativeFeedback
+      onPress={onClick}
+      onLongPress={() => onLongPress(id)}
+    >
       <View style={styles.noteView}>
         <Text style={styles.noteText}>{text}</Text>
       </View>
