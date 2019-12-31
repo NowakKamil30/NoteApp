@@ -4,6 +4,7 @@ import {
   DOWNLOAD_NOTES,
   DOWNLOAD_ID,
   TEXT_NOTE,
+  CHANGE_COLOR_NOTE,
   CLOSE_MODAL_NOTE_MENU,
   OPEN_MODAL_NOTE_MENU
 } from "./types";
@@ -24,6 +25,28 @@ export const closeModalNoteMenu = () => ({
   type: CLOSE_MODAL_NOTE_MENU,
   payload: -1
 });
+
+export const changeColorNote = (color, id, notes) => {
+  return dispatch => {
+    const indexToChangeColor = notes.findIndex(
+      note => Number(note.id) === Number(id)
+    );
+    notes[indexToChangeColor].color = color;
+    _storeData(`color-${id}`, color)
+      .then(result => {
+        dispatch({
+          type: CHANGE_COLOR_NOTE,
+          payload: { notes, error: false }
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: CHANGE_COLOR_NOTE,
+          payload: { notes: null, error: true }
+        });
+      });
+  };
+};
 
 export const downloadNotes = () => {
   return dispatch =>
@@ -95,10 +118,10 @@ export const deleteNote = (id, notes) => {
         return _storeData("usingID", usingId);
       })
       .then(result => {
-        dispatch({ type: DELETE_NOTE, payload: notes, error: false });
+        dispatch({ type: DELETE_NOTE, payload: { notes, error: false } });
       })
       .catch(error => {
-        dispatch({ type: DELETE_NOTE, payload: null, error: true });
+        dispatch({ type: DELETE_NOTE, payload: { notes: null, error: true } });
       });
   };
 };
