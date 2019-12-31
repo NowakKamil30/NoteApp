@@ -1,14 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableNativeFeedback } from "react-native";
+import { screens, colors } from "../../setting.json";
 
-const NoteElement = ({ text, id, onClick, onLongPress }) => {
+const NoteElement = ({ textItem, idItem, colorItem, onClick, onLongPress }) => {
   return (
     <TouchableNativeFeedback
       onPress={onClick}
-      onLongPress={() => onLongPress(id)}
+      onLongPress={() => onLongPress(idItem)}
     >
-      <View style={styles.noteView}>
-        <Text style={styles.noteText}>{text}</Text>
+      <View
+        style={{
+          ...styles.noteView,
+          backgroundColor: colors.find(color => color.name === colorItem).value
+        }}
+      >
+        <Text style={styles.noteText}>{textItem}</Text>
       </View>
     </TouchableNativeFeedback>
   );
@@ -16,9 +22,8 @@ const NoteElement = ({ text, id, onClick, onLongPress }) => {
 
 const styles = StyleSheet.create({
   noteView: {
-    borderRadius: 10,
+    borderRadius: screens.borderRadius,
     height: 150,
-    backgroundColor: "#F1F295",
     marginVertical: 5,
     marginHorizontal: 30,
     padding: 10
