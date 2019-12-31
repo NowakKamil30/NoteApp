@@ -8,11 +8,25 @@ import {
   TouchableOpacity,
   Text
 } from "react-native";
+import { RadioButtons } from "react-native-radio-buttons";
 import { connect } from "react-redux";
-import { closeModalNoteMenu, deleteNote } from "../action";
+import { closeModalNoteMenu, deleteNote, changeColorNote } from "../action";
+import { screens, colors } from "../../setting.json";
 
-const ModalNoteMenu = ({ noteId, notes, closeModal, deleteNote }) => {
-  const { containerStyle, buttonContainerStyle } = styles;
+const ModalNoteMenu = ({
+  noteId,
+  notes,
+  closeModal,
+  deleteNote,
+  changeColorNote
+}) => {
+  const options = colors.map(color => color.name);
+  const {
+    headerView,
+    textStyle,
+    containerStyle,
+    buttonContainerStyle
+  } = styles;
   return (
     <Modal
       transparent
@@ -23,6 +37,15 @@ const ModalNoteMenu = ({ noteId, notes, closeModal, deleteNote }) => {
       <TouchableOpacity style={{ flex: 1 }} onPress={() => closeModal()}>
         <TouchableWithoutFeedback>
           <View style={containerStyle}>
+            <View style={headerView}>
+              <Text style={textStyle}>Ustawienia notatki</Text>
+            </View>
+            <RadioButtons
+              options={options}
+              onSelection={selectedOption => {
+                changeColorNote(selectedOption, noteId, notes);
+              }}
+            />
             <View style={buttonContainerStyle}>
               <TouchableNativeFeedback
                 onPress={() => {
@@ -30,7 +53,7 @@ const ModalNoteMenu = ({ noteId, notes, closeModal, deleteNote }) => {
                   closeModal();
                 }}
               >
-                <Text>Click!</Text>
+                <Text style={textStyle}>Usuń</Text>
               </TouchableNativeFeedback>
             </View>
           </View>
@@ -42,14 +65,29 @@ const ModalNoteMenu = ({ noteId, notes, closeModal, deleteNote }) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    height: "40%",
     width: "70%",
     marginTop: "30%",
     alignSelf: "center",
+    borderRadius: screens.borderRadius,
     backgroundColor: "white"
   },
+  headerView: {
+    paddingVertical: 30,
+    borderTopStartRadius: screens.borderRadius,
+    borderTopEndRadius: screens.borderRadius,
+    backgroundColor: screens.navigationHeaderColor
+  },
+  headerTextStyle: {
+    fontSize: 22,
+    textAlign: "center"
+  },
+  textStyle: {
+    fontSize: 18,
+    textAlign: "center"
+  },
   buttonContainerStyle: {
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop: 10
   }
 });
 
@@ -66,6 +104,9 @@ const mamDispatchToProps = dispatch => {
     },
     deleteNote: (id, notes) => {
       dispatch(deleteNote(id, notes));
+    },
+    changeColorNote: (color, id, notes) => {
+      dispatch(changeColorNote(color, id, notes));
     }
   };
 };
