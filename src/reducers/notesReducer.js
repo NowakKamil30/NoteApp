@@ -10,7 +10,7 @@ import { _retrieveData, _storeData } from "../helpers/useData";
 const INITIAL_STATE = { notes: [] };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("action", action);
+  console.log("action-noteReducer", action);
   switch (action.type) {
     case DOWNLOAD_ID:
       {
@@ -31,6 +31,15 @@ export default (state = INITIAL_STATE, action) => {
         state.notes[index].text = text;
         _storeData("text-" + id, text);
         return { ...state, notes: state["notes"] };
+      }
+      break;
+    case DELETE_NOTE:
+      {
+        if (action.error) {
+          return state;
+        }
+        const { payload } = action;
+        return { ...state, notes: payload };
       }
       break;
     case DOWNLOAD_NOTES:
