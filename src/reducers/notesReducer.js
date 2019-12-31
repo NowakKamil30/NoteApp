@@ -3,7 +3,8 @@ import {
   ADD_NOTE,
   DOWNLOAD_NOTES,
   DOWNLOAD_ID,
-  TEXT_NOTE
+  TEXT_NOTE,
+  CHANGE_COLOR_NOTE
 } from "../action/types";
 import { _retrieveData, _storeData } from "../helpers/useData";
 
@@ -35,11 +36,20 @@ export default (state = INITIAL_STATE, action) => {
       break;
     case DELETE_NOTE:
       {
-        if (action.error) {
+        const { error, notes } = action.payload;
+        if (error) {
           return state;
         }
-        const { payload } = action;
-        return { ...state, notes: payload };
+        return { ...state, notes };
+      }
+      break;
+    case CHANGE_COLOR_NOTE:
+      {
+        const { error, notes } = action.payload;
+        if (error) {
+          return state;
+        }
+        return { ...state, notes };
       }
       break;
     case DOWNLOAD_NOTES:
