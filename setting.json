@@ -1,5 +1,9 @@
 {
     "colors":[
-        "green","blue","red","violet","orange","yellow"
-    ]
+        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#F1F295"}, {"name":"red", "value": "#F1F295"}, {"name":"violet", "value": "#F1F295"}, {"name":"orange", "value": "#F1F295"},{"name":"yellow", "value": "#F1F295"}
+    ],
+    "screensColor":{
+        "backgroundColor" : "#AFB42B",
+        "navigationHeaderColor" : "#CDDC39"
+    }
 }
