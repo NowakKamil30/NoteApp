@@ -1,5 +1,13 @@
 import { AsyncStorage } from "react-native";
 import { colors } from "../../setting.json";
+
+export const _removeData = async key => {
+  try {
+    await AsyncStorage.removeItem(String(key));
+  } catch (error) {
+    console.log("err", error);
+  }
+};
 export const _storeData = async (key, value) => {
   try {
     await AsyncStorage.setItem(String(key), String(value));
@@ -7,7 +15,6 @@ export const _storeData = async (key, value) => {
     console.log("err", error);
   }
 };
-
 export const _retrieveData = async key => {
   try {
     const value = await AsyncStorage.getItem(String(key));
