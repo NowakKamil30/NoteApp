@@ -5,7 +5,7 @@ import NoteElement from "../components/NoteElement";
 import RadiusButton from "../components/RadiusButton";
 import ModalNoteMenu from "../components/ModalNoteMenu";
 import { addNote, downloadNotes, openModalNoteMenu } from "../action";
-import { screensColor } from "../../setting.json";
+import { screens } from "../../setting.json";
 
 HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
   const notes = useSelector(state => state.notes);
@@ -31,8 +31,9 @@ HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
               });
             }}
             onLongPress={id => openModalNoteMenu(id)}
-            text={item.text}
-            id={item.id}
+            textItem={item.text}
+            idItem={item.id}
+            colorItem={item.color}
           />
         )}
       />
@@ -42,7 +43,7 @@ HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
 
 const styles = StyleSheet.create({
   mainView: {
-    backgroundColor: screensColor.backgroundColor,
+    backgroundColor: screens.backgroundColor,
     height: "100%",
     width: "100%"
   },
