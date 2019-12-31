@@ -38,7 +38,7 @@ export const createArrayNotes = ids => {
       return _retrieveData(`color-${id}`)
         .then(color => {
           const isCorrectColor = colors.filter(settingColor => {
-            return settingColor === color;
+            return settingColor.name === color;
           });
           if (isCorrectColor) {
             noteColor = color;

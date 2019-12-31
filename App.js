@@ -7,6 +7,7 @@ import ReduxThunk from "redux-thunk";
 import HomeScreen from "./src/screens/HomeScreen";
 import NoteScreen from "./src/screens/NoteScreen";
 import reducers from "./src/reducers";
+import { screensColor } from "./setting.json";
 
 const navigator = createStackNavigator(
   {
@@ -18,7 +19,7 @@ const navigator = createStackNavigator(
     defaultNavigationOptions: {
       title: "Mój notatnik",
       headerStyle: {
-        backgroundColor: "#CDDC39"
+        backgroundColor: screensColor.navigationHeaderColor
       }
     }
   }
