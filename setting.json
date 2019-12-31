@@ -1,9 +1,10 @@
 {
     "colors":[
-        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#F1F295"}, {"name":"red", "value": "#F1F295"}, {"name":"violet", "value": "#F1F295"}, {"name":"orange", "value": "#F1F295"},{"name":"yellow", "value": "#F1F295"}
+        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#0000DD"}, {"name":"red", "value": "#F1F295"}, {"name":"violet", "value": "#F1F295"}, {"name":"orange", "value": "#F1F295"},{"name":"yellow", "value": "#000000"}
     ],
-    "screensColor":{
+    "screens":{
         "backgroundColor" : "#AFB42B",
-        "navigationHeaderColor" : "#CDDC39"
+        "navigationHeaderColor" : "#CDDC39",
+        "borderRadius": 10
     }
 }
