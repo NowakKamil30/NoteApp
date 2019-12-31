@@ -3,14 +3,27 @@ import {
   DELETE_NOTE,
   DOWNLOAD_NOTES,
   DOWNLOAD_ID,
-  TEXT_NOTE
+  TEXT_NOTE,
+  CLOSE_MODAL_NOTE_MENU,
+  OPEN_MODAL_NOTE_MENU
 } from "./types";
 import {
   _retrieveData,
   _storeData,
+  _removeData,
   getIdKeys,
   createArrayNotes
 } from "../helpers/useData";
+
+export const openModalNoteMenu = noteId => ({
+  type: OPEN_MODAL_NOTE_MENU,
+  payload: noteId
+});
+
+export const closeModalNoteMenu = () => ({
+  type: CLOSE_MODAL_NOTE_MENU,
+  payload: -1
+});
 
 export const downloadNotes = () => {
   return dispatch =>
@@ -65,4 +78,27 @@ export const textNote = (id, text) => {
   return { type: TEXT_NOTE, payload: { id, text } };
 };
 
-export const deleteNote = id => ({ type: DELETE_NOTE, payload: id });
+export const deleteNote = (id, notes) => {
+  return dispatch => {
+    const idArray = notes.map(note => note.id);
+    const indexToDelete = idArray.findIndex(
+      noteId => Number(noteId) === Number(id)
+    );
+    idArray.splice(indexToDelete, 1);
+    notes.splice(indexToDelete, 1);
+    const usingId = idArray.join(";") + ";";
+    _removeData(`text-${id}`)
+      .then(result => {
+        return _removeData(`color-${id}`);
+      })
+      .then(result => {
+        return _storeData("usingID", usingId);
+      })
+      .then(result => {
+        dispatch({ type: DELETE_NOTE, payload: notes, error: false });
+      })
+      .catch(error => {
+        dispatch({ type: DELETE_NOTE, payload: null, error: true });
+      });
+  };
+};
