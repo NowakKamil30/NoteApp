@@ -1,6 +1,6 @@
 {
     "colors":[
-        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#0000DD"}, {"name":"red", "value": "#F1F295"}, {"name":"violet", "value": "#F1F295"}, {"name":"orange", "value": "#F1F295"},{"name":"yellow", "value": "#000000"}
+        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#56EEFF"}, {"name":"red", "value": "#EF3E36"}, {"name":"violet", "value": "#9191E9"}, {"name":"orange", "value": "#FC9749"},{"name":"yellow", "value": "#FFCA47"}
     ],
     "screens":{
         "backgroundColor" : "#AFB42B",
