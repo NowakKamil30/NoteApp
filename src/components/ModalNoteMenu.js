@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Text
 } from "react-native";
-import { RadioButtons } from "react-native-radio-buttons";
 import { connect } from "react-redux";
 import { closeModalNoteMenu, deleteNote, changeColorNote } from "../action";
 import { screens, colors } from "../../setting.json";
@@ -20,7 +19,6 @@ const ModalNoteMenu = ({
   deleteNote,
   changeColorNote
 }) => {
-  const options = colors.map(color => color.name);
   const {
     headerView,
     textStyle,
@@ -40,12 +38,15 @@ const ModalNoteMenu = ({
             <View style={headerView}>
               <Text style={textStyle}>Ustawienia notatki</Text>
             </View>
-            <RadioButtons
+            <View>
+
+            </View>
+            {/* <RadioButtons
               options={options}
               onSelection={selectedOption => {
                 changeColorNote(selectedOption, noteId, notes);
               }}
-            />
+            /> */}
             <View style={buttonContainerStyle}>
               <TouchableNativeFeedback
                 onPress={() => {
