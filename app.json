@@ -1,14 +1,19 @@
 {
   "expo": {
-    "name": "Note",
+    "name": "Twój Notanik",
     "slug": "NoteApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
-      "ios",
       "android",
       "web"
     ],
+    "android": {
+      "package": "com.kamilNowak.NoteApp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.kamilNowak.NoteApp"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,6 +22,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+
     "updates": {
       "fallbackToCacheTimeout": 0
     },
