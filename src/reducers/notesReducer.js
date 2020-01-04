@@ -11,13 +11,13 @@ import { _retrieveData, _storeData } from "../helpers/useData";
 const INITIAL_STATE = { notes: [] };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("action-noteReducer", action);
+  console.log(action);
   switch (action.type) {
     case DOWNLOAD_ID:
       {
         const { currentid, error } = action.payload;
         if (error) {
-          console.log("sth went wrong");
+          console.log("sth went wrong" + err);
           return state;
         }
         const { notes } = state;
