@@ -1,10 +1,15 @@
 {
     "colors":[
-        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#56EEFF"}, {"name":"red", "value": "#EF3E36"}, {"name":"violet", "value": "#9191E9"}, {"name":"orange", "value": "#FC9749"},{"name":"yellow", "value": "#FFCA47"}
+        {"name":"green", "value": "#F1F295"}, {"name":"blue", "value": "#56EEFF"}, {"name":"red", "value": "#EF3E36"}, {"name":"violet", "value": "#9191E9"}, {"name":"orange", "value": "#FC9749"},{"name":"yellow", "value": "#F8D901"}
     ],
     "screens":{
         "backgroundColor" : "#AFB42B",
         "navigationHeaderColor" : "#CDDC39",
         "borderRadius": 10
+    },
+    "property":{
+        "shortTextLength": 120,
+        "lineNumbers": 7
     }
+    
 }
