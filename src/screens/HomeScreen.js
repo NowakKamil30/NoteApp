@@ -8,10 +8,12 @@ import { addNote, downloadNotes, openModalNoteMenu } from "../action";
 import { screens } from "../../setting.json";
 
 HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
+  const { mainView, list } = styles;
+
   const notes = useSelector(state => state.notes);
   useEffect(onStart, []);
   return (
-    <View style={styles.mainView}>
+    <View style={mainView}>
       <ModalNoteMenu />
       <RadiusButton
         onClick={() => {
@@ -19,7 +21,7 @@ HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
         }}
       />
       <FlatList
-        style={styles.list}
+        style={list}
         data={data}
         keyExtractor={({ id }) => id}
         renderItem={({ item }) => (
@@ -30,7 +32,7 @@ HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
                 id: item.id
               });
             }}
-            onLongPress={id => openModalNoteMenu(id)}
+            onLongPress={id => openModalNoteMenu(id, item.color)}
             textItem={item.text}
             idItem={item.id}
             colorItem={item.color}
@@ -43,6 +45,7 @@ HomeScreen = ({ navigation, data, addNote, onStart, openModalNoteMenu }) => {
 
 const styles = StyleSheet.create({
   mainView: {
+    flex: 1,
     backgroundColor: screens.backgroundColor,
     height: "100%",
     width: "100%"
@@ -64,8 +67,8 @@ const mapDispatchToProps = dispatch => {
     addNote: () => {
       dispatch(addNote());
     },
-    openModalNoteMenu: id => {
-      dispatch(openModalNoteMenu(id));
+    openModalNoteMenu: (id, color) => {
+      dispatch(openModalNoteMenu(id, color));
     }
   };
 };
