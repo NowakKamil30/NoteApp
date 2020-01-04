@@ -3,7 +3,7 @@ import { colors } from "../../setting.json";
 
 export const _removeData = async key => {
   try {
-    await AsyncStorage.removeItem(String(key));
+    await AsyncStorage.setItem(String(key), "");
   } catch (error) {
     console.log("err", error);
   }
