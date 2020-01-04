@@ -5,6 +5,8 @@ import { textNote } from "../action";
 import { _storeData, _retrieveData } from "../helpers/useData";
 
 const NoteScreen = ({ navigation, onChange, data }) => {
+  const { textInput, view } = styles;
+
   const id = navigation.getParam("id");
   const notes = useSelector(state => state.notes);
   const findCurrentText = () => {
@@ -12,12 +14,12 @@ const NoteScreen = ({ navigation, onChange, data }) => {
     return String(data[index].text);
   };
   return (
-    <View style={styles.view}>
+    <View style={view}>
       <TextInput
-        style={styles.textInput}
+        style={textInput}
         multiline={true}
         value={findCurrentText()}
-        numberOfLines={40}
+        numberOfLines={20}
         onChangeText={value => {
           onChange(id, value);
         }}
