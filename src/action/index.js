@@ -5,6 +5,7 @@ import {
   DOWNLOAD_ID,
   TEXT_NOTE,
   CHANGE_COLOR_NOTE,
+  CHANGE_FOCUS_MODAL_RADIO_BUTTON,
   CLOSE_MODAL_NOTE_MENU,
   OPEN_MODAL_NOTE_MENU
 } from "./types";
@@ -16,14 +17,19 @@ import {
   createArrayNotes
 } from "../helpers/useData";
 
-export const openModalNoteMenu = noteId => ({
+export const openModalNoteMenu = (noteId, colorItem) => ({
   type: OPEN_MODAL_NOTE_MENU,
-  payload: noteId
+  payload: { noteId, colorItem }
 });
 
 export const closeModalNoteMenu = () => ({
   type: CLOSE_MODAL_NOTE_MENU,
   payload: -1
+});
+
+export const changeFocusModalRadioButton = colorItem => ({
+  type: CHANGE_FOCUS_MODAL_RADIO_BUTTON,
+  payload: { colorItem }
 });
 
 export const changeColorNote = (color, id, notes) => {
@@ -52,6 +58,9 @@ export const downloadNotes = () => {
   return dispatch =>
     _retrieveData("usingID")
       .then(usingID => {
+        if (usingID == undefined) {
+          return [];
+        }
         return getIdKeys(usingID);
       })
       .then(keyArray => {
@@ -67,7 +76,7 @@ export const addNote = () => {
   return dispatch =>
     _retrieveData("id")
       .then(id => {
-        if (id === "undefined") {
+        if (id == undefined || id == NaN || id == "" || id < 0) {
           currentid = 1;
         } else {
           currentid = Number(id) + 1;
