@@ -21,6 +21,7 @@ import {
   changeFocusModalRadioButton
 } from "../action";
 import { screens, colors } from "../../setting.json";
+import { ModalBottonButton } from "./ModalBottonButton";
 
 const ModalNoteMenu = ({
   noteId,
@@ -89,16 +90,13 @@ const ModalNoteMenu = ({
                   ))}
               </RadioForm>
             </View>
-            <View style={buttonContainerStyle}>
-              <TouchableNativeFeedback
-                onPress={() => {
-                  deleteNote(noteId, notes);
-                  closeModal();
-                }}
-              >
-                <Text style={textStyle}>Usuń</Text>
-              </TouchableNativeFeedback>
-            </View>
+            <ModalBottonButton
+              title="Usuń" 
+              onPress={() => {
+                deleteNote(noteId, notes);
+                closeModal();
+              }}
+            />
           </View>
         </TouchableWithoutFeedback>
       </TouchableOpacity>
