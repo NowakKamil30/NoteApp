@@ -7,7 +7,8 @@ import {
   CHANGE_COLOR_NOTE,
   CHANGE_FOCUS_MODAL_RADIO_BUTTON,
   CLOSE_MODAL_NOTE_MENU,
-  OPEN_MODAL_NOTE_MENU
+  OPEN_MODAL_NOTE_MENU,
+  SHARE_NOTE
 } from "./types";
 import {
   _retrieveData,
@@ -31,6 +32,11 @@ export const changeFocusModalRadioButton = colorItem => ({
   type: CHANGE_FOCUS_MODAL_RADIO_BUTTON,
   payload: { colorItem }
 });
+
+export const shareNote = id => ({
+  type: SHARE_NOTE,
+  payload: { id }
+})
 
 export const changeColorNote = (color, id, notes) => {
   return dispatch => {

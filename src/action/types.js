@@ -8,3 +8,4 @@ export const CHANGE_FOCUS_MODAL_RADIO_BUTTON =
   "change_focus_modal_radio_button";
 export const OPEN_MODAL_NOTE_MENU = "open_modal_note_menu";
 export const CLOSE_MODAL_NOTE_MENU = "close_modal_note_menu";
+export const SHARE_NOTE = "share_note";

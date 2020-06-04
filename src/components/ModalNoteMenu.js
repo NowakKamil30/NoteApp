@@ -3,7 +3,6 @@ import {
   View,
   Modal,
   StyleSheet,
-  TouchableNativeFeedback,
   TouchableWithoutFeedback,
   TouchableOpacity,
   Text
@@ -18,7 +17,8 @@ import {
   closeModalNoteMenu,
   deleteNote,
   changeColorNote,
-  changeFocusModalRadioButton
+  changeFocusModalRadioButton,
+  shareNote
 } from "../action";
 import { screens, colors } from "../../setting.json";
 import { ModalBottonButton } from "./ModalBottonButton";
@@ -30,16 +30,16 @@ const ModalNoteMenu = ({
   closeModal,
   deleteNote,
   changeColorNote,
-  changeFocusModalRadioButton
+  changeFocusModalRadioButton,
+  shareNote
 }) => {
   const {
     headerView,
     textStyle,
     containerStyle,
-    buttonContainerStyle
   } = styles;
 
-  const onPress = color => {
+  const onRadioButtonPress = color => {
     changeColorNote(color, noteId, notes);
     changeFocusModalRadioButton(color);
   };
@@ -69,7 +69,7 @@ const ModalNoteMenu = ({
                         index={i}
                         isSelected={colorItem === obj.label}
                         onPress={color => {
-                          onPress(color);
+                          onRadioButtonPress(color);
                         }}
                         borderWidth={1}
                         buttonInnerColor={obj.value}
@@ -81,7 +81,7 @@ const ModalNoteMenu = ({
                         index={i}
                         labelHorizontal={true}
                         onPress={color => {
-                          onPress(color);
+                          onRadioButtonPress(color);
                         }}
                         labelStyle={{ fontSize: 20, color: obj.value }}
                         labelWrapStyle={{}}
@@ -91,7 +91,13 @@ const ModalNoteMenu = ({
               </RadioForm>
             </View>
             <ModalBottonButton
-              title="Usuń" 
+              title="Udostępnij"
+              onPress={() => {
+                shareNote(noteId);
+              }}
+            />
+            <ModalBottonButton
+              title="Usuń"
               onPress={() => {
                 deleteNote(noteId, notes);
                 closeModal();
@@ -154,6 +160,9 @@ const mamDispatchToProps = dispatch => {
     },
     changeFocusModalRadioButton: colorItem => {
       dispatch(changeFocusModalRadioButton(colorItem));
+    },
+    shareNote: id => {
+      dispatch(shareNote(id))
     }
   };
 };

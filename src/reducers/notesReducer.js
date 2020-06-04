@@ -1,12 +1,13 @@
 import {
   DELETE_NOTE,
-  ADD_NOTE,
   DOWNLOAD_NOTES,
   DOWNLOAD_ID,
   TEXT_NOTE,
-  CHANGE_COLOR_NOTE
+  CHANGE_COLOR_NOTE,
+  SHARE_NOTE
 } from "../action/types";
 import { _retrieveData, _storeData } from "../helpers/useData";
+import { Share } from "react-native";
 
 const INITIAL_STATE = { notes: [] };
 
@@ -58,6 +59,14 @@ export default (state = INITIAL_STATE, action) => {
         return { ...state, notes: payload };
       }
       break;
+    case SHARE_NOTE:
+      {
+        const { payload } = action;
+        const { notes } = state;
+        const filterNote = notes.filter(note => +payload.id === +note.id)[0];
+        Share.share({ title: 'title', message: filterNote.text, url: 'www.example.com', subject: 'subject' });
+        return { ...state }
+      }
     default:
       {
         return state;
